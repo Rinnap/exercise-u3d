@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Staff : MonoBehaviour
 {
-    public int moveRange=10;
+    public int moveRange;
     public int attackRange;
    // public NavMeshAgent agent;
    
@@ -36,16 +36,17 @@ public class Staff : MonoBehaviour
     }
 
 
-    //移动测试代码
+    ////移动测试代码
     //public void move()
     //{   //if(Input.GetMouseButtonDown(0)){
-  
+
     //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
     //    RaycastHit hit;
-    //    if(Physics.Raycast(ray,out hit))
-    //    {
-    //        agent.SetDestination(hit.point);
-    //    }}
+    //    //if (Physics.Raycast(ray, out hit))
+    //    //{
+    //    //    agent.SetDestination(hit.point);
+    //    //}
     //}
-
 }
+
+

@@ -22,8 +22,6 @@ public class follow : MonoBehaviour
         Vector2 player2DPosition = Camera.main.WorldToScreenPoint(GameManager.selected. transform.position);
         attack.position = player2DPosition + new Vector2(xOffset, yOffset);
         skill.position = player2DPosition + new Vector2(-xOffset, yOffset);
-
-
         ////血条超出屏幕就不显示
         //if (player2DPosition.x > Screen.width || player2DPosition.x < 0 || player2DPosition.y > Screen.height || player2DPosition.y < 0)
         //{

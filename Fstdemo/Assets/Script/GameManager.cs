@@ -11,19 +11,21 @@ public class GameManager : MonoBehaviour
 
     private bool isMove = false;
     private List<GameObject> moveList;
-    private GameObject selectedCell;
+    private List<GameObject> attackList;
+    public GameObject selectedCell;
     // Start is called before the first frame update
     void Start()
     {
         cells = GameObject.FindGameObjectsWithTag("cell");
         moveList = new List<GameObject>();
+        attackList = new List<GameObject>();
     }
 
     // Update is called once per frame
     void Update()
     {
         //ShowAttackRange();
-        ShowpersonUI();
+        ShowPersonUI();
     }
     //显示攻击范围
     public void ShowMoveRange()
@@ -69,29 +71,37 @@ public class GameManager : MonoBehaviour
         //    Debug.Log("到达地点");
         //    isMove = false;
         //    CloseMoveRange();
-        //    foreach (var cell in cells)
-        //    {
-        //        if (Mathf.Abs(Vector3.Distance(cell.transform.position, selected.transform.position)) <= 10)
-        //        {
-        //            selectedCell = cell;
-        //        }
-        //    }
-        //    foreach (var cell in cells)
-        //    {
-        //        int range = selected.GetComponent<Staff>().attackRange;
-
-        //        if (Mathf.Abs(cell.transform.position.x - selectedCell.transform.position.x) +
-        //           Mathf.Abs(cell.transform.position.z - selectedCell.transform.position.z) <= range)
-        //        {
-        //            cell.GetComponent<Cells>().moveable = true;
-        //            cell.GetComponent<Cells>().attackCell.SetActive(true);
-        //            moveList.Add(cell);
-        //        }
-        //    }
-        //}  
+        CloseAttackRange();
+            foreach (var cell in cells)
+            {
+                if (Mathf.Abs(Vector3.Distance(cell.transform.position, selected.transform.position)) <= 10)
+                {
+                    selectedCell = cell;
+                }
+            }
+            foreach (var cell in cells)
+            {
+                int range = selected.GetComponent<Staff>().attackRange;
+                if (Mathf.Abs(cell.transform.position.x - selectedCell.transform.position.x) +
+                   Mathf.Abs(cell.transform.position.z - selectedCell.transform.position.z) <= range)
+                {
+                    cell.GetComponent<Cells>().attackCell.SetActive(true);
+                    attackList.Add(cell);
+                }
+            }
+       selectedCell.GetComponent<Cells>().attackCell.SetActive(false);
     }
 
-    public void ShowpersonUI()
+    public void CloseAttackRange()
+    {
+        foreach (var cell in attackList)
+        {
+            cell.GetComponent<Cells>().attackCell.SetActive(false);
+        }
+        attackList.Clear();
+    }
+
+    public void ShowPersonUI()
     {
         if (agent.remainingDistance < 0.2 && isMove)
         {
@@ -107,6 +117,5 @@ public class GameManager : MonoBehaviour
     {
         agent.SetDestination(movePoint);
         isMove = true;
-
     }
 }
