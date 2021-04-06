@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.23584908, g: 0.23584908, b: 0.23584908, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -159,6 +159,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5.014725, y: 4.9049544, z: 1}
   m_Center: {x: -0.012234688, y: -0.0007591248, z: 1.5720799e-18}
+--- !u!114 &211371006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8599099150156287556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aaab0f30f4584421b2cc8e027ce837a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  staffs: []
+  onAttactedStaff: {fileID: 0}
 --- !u!114 &1802844278015041509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,19 +215,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4413391135049992235}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: CloseAttackRange
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1001 &3774018153913853790
 PrefabInstance:
   m_ObjectHideFlags: 0

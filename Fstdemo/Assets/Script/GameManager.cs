@@ -5,11 +5,14 @@ using UnityEngine.AI;
 public class GameManager : MonoBehaviour
 {
     public GameObject selected;
+    public bool isSelected;
     public GameObject[] cells;
     public NavMeshAgent agent;
     public GameObject personui;
+    public GameObject[] staffs;
+    public int turn=0;
 
-    private bool isMove = false;
+    private bool isMove;
     private List<GameObject> moveList;
     private List<GameObject> attackList;
     public GameObject selectedCell;
@@ -17,8 +20,12 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         cells = GameObject.FindGameObjectsWithTag("cell");
+        staffs = GameObject.FindGameObjectsWithTag("staff");
         moveList = new List<GameObject>();
         attackList = new List<GameObject>();
+        isSelected = false;
+        isMove = false;
+        turnChange();
     }
 
     // Update is called once per frame
@@ -50,7 +57,7 @@ public class GameManager : MonoBehaviour
                 moveList.Add(cell);
             }
         }
-
+        selectedCell.GetComponent<Cells>().moveCell.SetActive(false);
     }
 
     //关闭攻击范围
@@ -89,9 +96,11 @@ public class GameManager : MonoBehaviour
                     attackList.Add(cell);
                 }
             }
+            //关闭脚下攻击范围
        selectedCell.GetComponent<Cells>().attackCell.SetActive(false);
     }
 
+    //关闭攻击范围
     public void CloseAttackRange()
     {
         foreach (var cell in attackList)
@@ -101,6 +110,7 @@ public class GameManager : MonoBehaviour
         attackList.Clear();
     }
 
+    // 显示ui
     public void ShowPersonUI()
     {
         if (agent.remainingDistance < 0.2 && isMove)
@@ -118,4 +128,53 @@ public class GameManager : MonoBehaviour
         agent.SetDestination(movePoint);
         isMove = true;
     }
+
+    //结束角色行动
+    public void staffEnd()
+    {
+        foreach (var cell in cells)
+        {
+            cell.GetComponent<Cells>().attackCell.SetActive(false);
+        }
+        selected.GetComponent<Staff>().changeStatus(3);
+        isSelected = false;
+        personui.SetActive(false);
+    }
+
+    //切换玩家回合
+    public void turnChange()
+    {
+        staffEnd();
+        turn += 1;
+        if (turn%2==1)//奇数回合蓝队，偶数回合黄队
+        {
+            foreach (var staff in staffs)
+            {
+                if(staff.GetComponent<Staff>().party==0)
+                {
+                    staff.GetComponent<Staff>().changeStatus(0);
+                }
+                else if (staff.GetComponent<Staff>().party == 1)
+                {
+                    staff.GetComponent<Staff>().changeStatus(3);
+                }
+            }
+        }
+        else if(turn % 2 == 0)
+        {
+            foreach (var staff in staffs)
+            {
+                if (staff.GetComponent<Staff>().party == 1)
+                {
+                    staff.GetComponent<Staff>().changeStatus(0);
+                }
+                else if (staff.GetComponent<Staff>().party == 0)
+                {
+                    staff.GetComponent<Staff>().changeStatus(3);
+                }
+            }
+        }
+       
+        Debug.Log(turn);
+;    }
 }
