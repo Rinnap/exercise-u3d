@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Staff : MonoBehaviour
 {
     public int moveRange;
     public int attackRange;
-    public Outline outline;
     public int staffStatus;
     public Light statusLight;
     public int party;//0是蓝队，1是黄队。
+    public GameObject staffHead;
+    
 
     public int atk = 10;
-    public int hp = 20;
+    public int hpmax;
+    public int hp;
     // public NavMeshAgent agent;
 
 
@@ -22,8 +25,7 @@ public class Staff : MonoBehaviour
     void Start()
     {
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        outline = gameObject.GetComponent<Outline>();
-        changeStatus(0);
+        hpmax = 20;
     }
 
     // Update is called once per frame
@@ -117,9 +119,17 @@ public class Staff : MonoBehaviour
         Debug.Log(gameObject + "收到" + GameManager.selected.GetComponent<Staff>().atk + "点伤害,还剩余" + hp + "点血量");
         changeStatus(3);
         GameManager.staffEnd();
-        if(hp==0)
+        staffHead.GetComponent<StaffHeadUI>().hpchange(hp, hpmax);
+        if (hp<=0)
         {
-            Destroy(gameObject);
+            staffDeath();
         }
+       
+    }
+
+    public void staffDeath()
+    {
+       staffHead.GetComponent<StaffHeadUI>().deadGray();  
+        Destroy(gameObject);
     }
 }
