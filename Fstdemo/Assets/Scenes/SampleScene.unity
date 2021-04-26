@@ -2156,15 +2156,19 @@ MonoBehaviour:
   staffStatus: 0
   statusLight: {fileID: 95265208}
   party: 0
-  staffHead: {fileID: 0}
+  staffHead: {fileID: 1026710402}
   atk: 10
   hpmax: 20
   hp: 20
+  magicatk: 10
+  OnCell: {fileID: 0}
+  skillku: {fileID: 0}
   GameManager: {fileID: 0}
-  xOffset: -100
+  xOffset: 150
   yOffset: 40
   staffSkill: {fileID: 511889398}
   prefab: {fileID: 1612153590758796177, guid: 12c34a659d67a4f0c846b8ff4ce45e87, type: 3}
+  staffSkillshow: 0
 --- !u!195 &113422697
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2452,11 +2456,15 @@ MonoBehaviour:
   atk: 10
   hpmax: 20
   hp: 20
+  magicatk: 10
+  OnCell: {fileID: 0}
+  skillku: {fileID: 0}
   GameManager: {fileID: 0}
   xOffset: -100
   yOffset: 0
   staffSkill: {fileID: 0}
   prefab: {fileID: 0}
+  staffSkillshow: 0
 --- !u!136 &126466883
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5796,6 +5804,7 @@ GameObject:
   - component: {fileID: 348483356}
   - component: {fileID: 348483355}
   - component: {fileID: 348483357}
+  - component: {fileID: 348483358}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5815,8 +5824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb0d678fa0314474eb4d41a94be8a3c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selected: {fileID: 1256491020}
-  skillselected: {fileID: 0}
+  selected: {fileID: 0}
   isSelected: 0
   cells: []
   agent: {fileID: 0}
@@ -5825,6 +5833,7 @@ MonoBehaviour:
   turn: 0
   turnUI: {fileID: 438660241}
   selectedCell: {fileID: 0}
+  onClickStaff: {fileID: 0}
 --- !u!4 &348483356
 Transform:
   m_ObjectHideFlags: 0
@@ -5858,6 +5867,24 @@ MonoBehaviour:
   attack: {fileID: 873723084}
   skill: {fileID: 662864959}
   stay: {fileID: 1310255517}
+  staffskill: {fileID: 511889398}
+  xskillOffset: -110
+  yskillOffset: -20
+--- !u!114 &348483358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 348483354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06c9752a308cc46a0b20748a347ad57c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameManager: {fileID: 0}
+  onAttackstaff: {fileID: 0}
+  attackstaff: {fileID: 0}
 --- !u!1001 &350739055
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6823,6 +6850,9 @@ MonoBehaviour:
   atk: 10
   hpmax: 0
   hp: 20
+  magicatk: 10
+  OnCell: {fileID: 0}
+  skillku: {fileID: 0}
   GameManager: {fileID: 0}
 --- !u!195 &414209272
 NavMeshAgent:
@@ -7514,6 +7544,9 @@ MonoBehaviour:
   atk: 10
   hpmax: 0
   hp: 20
+  magicatk: 10
+  OnCell: {fileID: 0}
+  skillku: {fileID: 0}
   GameManager: {fileID: 0}
 --- !u!136 &433228106
 CapsuleCollider:
@@ -8027,6 +8060,9 @@ MonoBehaviour:
   atk: 10
   hpmax: 0
   hp: 20
+  magicatk: 10
+  OnCell: {fileID: 0}
+  skillku: {fileID: 0}
   GameManager: {fileID: 0}
 --- !u!136 &455007965
 CapsuleCollider:
@@ -8552,7 +8588,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 511889395}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 86.183075}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1880448676}
@@ -8561,7 +8597,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -112, y: -39.6}
+  m_AnchoredPosition: {x: -540.002, y: -231.93439}
   m_SizeDelta: {x: 167.1286, y: 210.88788}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &511889397
@@ -10729,6 +10765,9 @@ MonoBehaviour:
   atk: 10
   hpmax: 0
   hp: 20
+  magicatk: 10
+  OnCell: {fileID: 0}
+  skillku: {fileID: 0}
   GameManager: {fileID: 0}
 --- !u!136 &622880584
 CapsuleCollider:
@@ -19641,6 +19680,9 @@ MonoBehaviour:
   atk: 10
   hpmax: 0
   hp: 20
+  magicatk: 10
+  OnCell: {fileID: 0}
+  skillku: {fileID: 0}
   GameManager: {fileID: 0}
 --- !u!136 &1256491023
 CapsuleCollider:
@@ -25660,15 +25702,19 @@ MonoBehaviour:
   staffStatus: 0
   statusLight: {fileID: 1889525389}
   party: 0
-  staffHead: {fileID: 0}
+  staffHead: {fileID: 1026710402}
   atk: 10
   hpmax: 20
   hp: 20
+  magicatk: 10
+  OnCell: {fileID: 0}
+  skillku: {fileID: 0}
   GameManager: {fileID: 0}
   xOffset: -100
   yOffset: 40
   staffSkill: {fileID: 511889398}
   prefab: {fileID: 1612153590758796177, guid: 12c34a659d67a4f0c846b8ff4ce45e87, type: 3}
+  staffSkillshow: 0
 --- !u!136 &1598870910
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -29094,6 +29140,9 @@ MonoBehaviour:
   atk: 10
   hpmax: 0
   hp: 20
+  magicatk: 10
+  OnCell: {fileID: 0}
+  skillku: {fileID: 0}
   GameManager: {fileID: 0}
 --- !u!136 &1740718683
 CapsuleCollider:
@@ -34025,6 +34074,9 @@ MonoBehaviour:
   atk: 10
   hpmax: 0
   hp: 20
+  magicatk: 10
+  OnCell: {fileID: 0}
+  skillku: {fileID: 0}
   GameManager: {fileID: 0}
 --- !u!136 &2111648125
 CapsuleCollider:

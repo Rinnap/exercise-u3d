@@ -5,6 +5,7 @@ using UnityEngine;
 public class movecell : MonoBehaviour
 {
     private GameManager GameManager;
+    public GameObject cell;
     // Start is called before the first frame update
     void Start()
     {

@@ -16,16 +16,18 @@ public class Staff : MonoBehaviour
     public int atk = 10;
     public int hpmax;
     public int hp;
-    public GameObject OnCell; 
+    public int magicatk = 10;
+    public GameObject OnCell;
+
     // public NavMeshAgent agent;
 
-
+    public skillku skillku;
     public GameManager GameManager;
     // Start is called before the first frame update
     void Start()
     {
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        hpmax = 20;
+        skillku = GameObject.Find("GameManager").GetComponent<skillku>();
     }
 
     // Update is called once per frame
@@ -121,15 +123,13 @@ public class Staff : MonoBehaviour
 
     public void underAttack()
     {
-        hp -= GameManager.selected.GetComponent<Staff>().atk;
+        //hp -= GameManager.selected.GetComponent<Staff>().atk;
+        hpChange(-GameManager.selected.GetComponent<Staff>().atk);
         Debug.Log(gameObject + "收到" + GameManager.selected.GetComponent<Staff>().atk + "点伤害,还剩余" + hp + "点血量");
         changeStatus(3);
         GameManager.staffEnd();
-        staffHead.GetComponent<StaffHeadUI>().hpchange(hp, hpmax);
-        if (hp<=0)
-        {
-            staffDeath();
-        }
+
+       
        
     }
 
@@ -148,4 +148,13 @@ public class Staff : MonoBehaviour
         staffHead.GetComponent<StaffHeadUI>().hpchange(hp, hpmax);
     }
 
+    public void hpChange(int numChange)
+    {
+        hp = Mathf.Clamp(hp + numChange , 0, hpmax);
+        staffHead.GetComponent<StaffHeadUI>().hpchange(hp, hpmax);
+        if (hp <= 0)
+        {
+            staffDeath();
+        }
+    }
 }

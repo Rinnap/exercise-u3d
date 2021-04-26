@@ -11,6 +11,7 @@ public class Producer : Staff
     public Image staffSkill;
     public Button prefab;
 
+    public bool staffSkillshow;
     // Start is called before the first frame update
     //void Start()
     //{
@@ -21,8 +22,7 @@ public class Producer : Staff
     {
         //Vector2 player2DPosition = Camera.main.WorldToScreenPoint(GameManager.selected.transform.position);
         //将玩家坐标转化为屏幕
-        Vector2 player2DPosition = Camera.main.WorldToScreenPoint(gameObject.transform.position);
-        staffSkill.rectTransform.position = player2DPosition + new Vector2(xOffset, yOffset);
+
         ////血条超出屏幕就不显示
         //if (player2DPosition.x > Screen.width || player2DPosition.x < 0 || player2DPosition.y > Screen.height || player2DPosition.y < 0)
         //{
@@ -32,6 +32,12 @@ public class Producer : Staff
         //{
         //    attack.gameObject.SetActive(true);
         //}
+        //if (staffSkillshow)
+        //{
+        //    Vector2 player2DPosition = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+        //    staffSkill.rectTransform.position = player2DPosition + new Vector2(xOffset, yOffset);
+        //}
+
     }
 
 
@@ -67,7 +73,7 @@ public class Producer : Staff
                 
                 break;
             case 4:
-                GameManager.skillselected = gameObject;
+                GameManager.onClickStaff = gameObject;
                 GameManager.skill();
                 break;    
         }
@@ -76,7 +82,9 @@ public class Producer : Staff
     }
     public void showstaffSkillUI()
     {
-        staffSkill.enabled=true;
+        staffSkill.enabled = true;
+        //staffSkillshow = true;
+
     }
 
     public void insistSkill()
@@ -91,11 +99,11 @@ public class Producer : Staff
     public void huifu()
     {
         GameManager.ShowSkillRange(80);
-        GameManager.skill = sanhua;
+        GameManager.skill = skillku.huifu;
     }
     public void sanhua()
     {
-        Debug.Log("发动技能2散花");
+      //  GameManager.onClickCell.GetComponent<Staff>().hp;
     }
     public void skill3()
     {

@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class skillku : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameManager GameManager;
+    public Staff onAttackstaff;
+    public Staff attackstaff;
+
     void Start()
     {
-        
+        GameManager = gameObject.GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -18,5 +21,12 @@ public class skillku : MonoBehaviour
     public void test()
     {
         Debug.Log("技能库测试");
+    }
+
+    public void huifu()
+    {
+        GameManager.onClickStaff.GetComponent<Staff>().hpChange(GameManager.selected.GetComponent<Staff>().magicatk);
+        Debug.Log(GameManager.onClickStaff + "收到10点治疗");
+        GameManager.staffEnd();
     }
 }

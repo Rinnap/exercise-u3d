@@ -13,6 +13,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.932627, y: 4.885102, z: 1}
   m_Center: {x: 0.023417283, y: -0.023976136, z: 7.274954e-17}
+--- !u!114 &1196667358183166128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214648857614033548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82ef3e2d085704e43a20ba490efd3483, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cell: {fileID: 6303480043762738184}
 --- !u!65 &3807074455348855020
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -38,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfc7b1f9963c4eae9e83ac65961c4ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cell: {fileID: 6303480043762738184}
 --- !u!1 &6303480043762738184
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,6 +148,7 @@ MonoBehaviour:
   moveCell: {fileID: 5179334537455790376}
   attackCell: {fileID: 8599099150156287556}
   skillCell: {fileID: 1214648857614033548}
+  staffOnCell: {fileID: 0}
 --- !u!65 &3331339388141385132
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -172,6 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aaab0f30f4584421b2cc8e027ce837a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cell: {fileID: 6303480043762738184}
 --- !u!1001 &3774018153913853790
 PrefabInstance:
   m_ObjectHideFlags: 0

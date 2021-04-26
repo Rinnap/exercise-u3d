@@ -7,6 +7,7 @@ public class attackcell : MonoBehaviour
     private GameObject[] staffs;
     private GameManager GameManager;
     private GameObject staffUnderattack;
+    public GameObject cell;
     void Start()
     {
    

@@ -8,7 +8,6 @@ using System;
 public class GameManager : MonoBehaviour
 {
     public GameObject selected;
-    public GameObject skillselected;
     public bool isSelected;
     public GameObject[] cells;
     public NavMeshAgent agent;
@@ -18,10 +17,11 @@ public class GameManager : MonoBehaviour
     public Text turnUI;
     public Action skill;
 
-    private bool isMove;
+    private bool isMove=false;
     private List<GameObject> moveList;
     private List<GameObject> attackList;
     public GameObject selectedCell;
+    public GameObject onClickStaff;
 
     // Start is called before the first frame update
     void Start()
@@ -31,9 +31,7 @@ public class GameManager : MonoBehaviour
         moveList = new List<GameObject>();
         attackList = new List<GameObject>();
         isSelected = false;
-        isMove = false;
         turnChange();
- 
     }
 
     // Update is called once per frame
@@ -147,8 +145,13 @@ public class GameManager : MonoBehaviour
         foreach (var cell in cells)
         {
             cell.GetComponent<Cells>().attackCell.SetActive(false);
+           // cell.GetComponent<Cells>().skillCell.SetActive(false);
         }
-        selected.GetComponent<Staff>().changeStatus(3);
+        if (selected != null)
+        {
+            selected.GetComponent<Staff>().changeStatus(3);
+        }
+
         isSelected = false;
         personui.SetActive(false);
     }
