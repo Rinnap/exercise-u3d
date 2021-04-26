@@ -12,15 +12,15 @@ public class Staff : MonoBehaviour
     public Light statusLight;
     public int party;//0是蓝队，1是黄队。
     public GameObject staffHead;
-    
 
     public int atk = 10;
     public int hpmax;
     public int hp;
+    public GameObject OnCell; 
     // public NavMeshAgent agent;
 
 
-    private GameManager GameManager;
+    public GameManager GameManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,39 +31,41 @@ public class Staff : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(transform.position, Vector3.up, Color.red);
+
     }
 
-    private void OnMouseDown()
-    {
-        switch (staffStatus)
-        {
-            //未选中状态时，当没有角色被选中时即可被选中。
-            case 0:
-                if (!GameManager.isSelected)
-                {
-                    GameManager.selected = gameObject;
-                    GameManager.agent = GetComponent<NavMeshAgent>();
-                    GameManager.ShowMoveRange();
-                    Debug.Log("MouseDown");
-                    changeStatus(1);
-                    GameManager.isSelected = true;
-                }
-             break;
-                //选中状态时，不可操作。
-            case 1:
-                break;
-                //被攻击状态,被攻击。
-            case 2:
-                underAttack();
-                break;
-                //结束状态时，不可操作。
-            case 3:
-                break;
-        }
+    //public void OnMouseDown()
+    //{
+    //    switch (staffStatus)
+    //    {
+    //        //未选中状态时，当没有角色被选中时即可被选中。
+    //        case 0:
+    //            if (!GameManager.isSelected)
+    //            {
+    //                GameManager.selected = gameObject;
+    //                GameManager.agent = GetComponent<NavMeshAgent>();
+    //                GameManager.ShowMoveRange();
+    //                Debug.Log("MouseDown");
+    //                changeStatus(1);
+    //                GameManager.isSelected = true;
+    //            }
+    //         break;
+    //            //选中状态时，不可操作。
+    //        case 1:
+    //            GameManager.CloseMoveRange();
+    //            GameManager.personui.SetActive(true);
+    //            break;
+    //            //被攻击状态,被攻击。
+    //        case 2:
+    //            underAttack();
+    //            break;
+    //            //结束状态时，不可操作。
+    //        case 3:
+    //            break;
+    //    }
        
         
-    }
+    //}
 
     public void ShowAttackRange()
     {
@@ -95,7 +97,7 @@ public class Staff : MonoBehaviour
         {
             case 1:
                 statusLight.enabled = true;
-                statusLight.color = new Color32(0, 149, 3, 255);
+                statusLight.color = new Color32(0, 75, 150, 255);
                 break;
             case 2:
                 statusLight.enabled = true;
@@ -107,6 +109,10 @@ public class Staff : MonoBehaviour
                 break;
             case 3:
                 statusLight.enabled = false;
+                break;
+            case 4:
+                statusLight.enabled = true;
+                statusLight.color = Color.green;
                 break;
             default:
                 break;
@@ -129,7 +135,17 @@ public class Staff : MonoBehaviour
 
     public void staffDeath()
     {
-       staffHead.GetComponent<StaffHeadUI>().deadGray();  
-        Destroy(gameObject);
+       staffHead.GetComponent<StaffHeadUI>().deadGray();
+       gameObject.SetActive(false);
     }
+
+    public void underHeal(int healNum)
+    {
+        hp = Mathf.Clamp(hp + healNum, 0, hpmax);
+        Debug.Log(gameObject + "收到" + healNum+ "点治疗,还剩余" + hp + "点血量");
+        changeStatus(3);
+        GameManager.staffEnd();
+        staffHead.GetComponent<StaffHeadUI>().hpchange(hp, hpmax);
+    }
+
 }

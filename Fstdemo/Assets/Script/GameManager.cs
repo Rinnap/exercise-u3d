@@ -1,21 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
+using System;
+
 public class GameManager : MonoBehaviour
 {
     public GameObject selected;
+    public GameObject skillselected;
     public bool isSelected;
     public GameObject[] cells;
     public NavMeshAgent agent;
     public GameObject personui;
     public GameObject[] staffs;
     public int turn=0;
+    public Text turnUI;
+    public Action skill;
 
     private bool isMove;
     private List<GameObject> moveList;
     private List<GameObject> attackList;
     public GameObject selectedCell;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +33,7 @@ public class GameManager : MonoBehaviour
         isSelected = false;
         isMove = false;
         turnChange();
+ 
     }
 
     // Update is called once per frame
@@ -57,7 +65,7 @@ public class GameManager : MonoBehaviour
                 moveList.Add(cell);
             }
         }
-        selectedCell.GetComponent<Cells>().moveCell.SetActive(false);
+     //   selectedCell.GetComponent<Cells>().moveCell.SetActive(false);
     }
 
     //关闭攻击范围
@@ -70,6 +78,9 @@ public class GameManager : MonoBehaviour
         }
         moveList.Clear();
     }
+
+
+
     //显示攻击范围
     public void ShowAttackRange()
     {
@@ -86,6 +97,7 @@ public class GameManager : MonoBehaviour
                     selectedCell = cell;
                 }
             }
+
             foreach (var cell in cells)
             {
                 int range = selected.GetComponent<Staff>().attackRange;
@@ -141,11 +153,45 @@ public class GameManager : MonoBehaviour
         personui.SetActive(false);
     }
 
+    public void ShowSkillRange(int skillrange)
+    {
+        //if (agent.remainingDistance < 0.2 && isMove)
+        //{
+        //    Debug.Log("到达地点");
+        //    isMove = false;
+        //    CloseMoveRange();
+        //CloseSkillRange();
+        foreach (var cell in cells)
+        {
+            if (Mathf.Abs(Vector3.Distance(cell.transform.position, selected.transform.position)) <= 10)
+            {
+                selectedCell = cell;
+            }
+        }
+
+        foreach (var cell in cells)
+        {
+
+            if (Mathf.Abs(cell.transform.position.x - selectedCell.transform.position.x) +
+               Mathf.Abs(cell.transform.position.z - selectedCell.transform.position.z) <= skillrange)
+            {
+                cell.GetComponent<Cells>().skillCell.SetActive(true);
+                attackList.Add(cell);
+            }
+        }
+        //关闭脚下攻击范围
+        selectedCell.GetComponent<Cells>().skillCell.SetActive(false);
+    }
     //切换玩家回合
     public void turnChange()
     {
+        if (isMove)
+        {
+            return;
+        }
         staffEnd();
         turn += 1;
+        turnUI.text = "回合"+turn.ToString();
         if (turn%2==1)//奇数回合蓝队，偶数回合黄队
         {
             foreach (var staff in staffs)
@@ -174,7 +220,13 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-       
+        CloseMoveRange();
+        CloseAttackRange();
         Debug.Log(turn);
-;    }
+    }
+
+    public void skillAction()
+    {
+        
+    }
 }

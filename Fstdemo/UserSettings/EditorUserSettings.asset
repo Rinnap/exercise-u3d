@@ -5,6 +5,12 @@ EditorUserSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 4
   m_ConfigSettings:
+    arktoon_version_local:
+      value: 521f0448571b5f
+      flags: 0
+    arktoon_version_remote:
+      value: 521f0448571b5f
+      flags: 0
     lightmappingDeviceAndPlatform:
       value: 53
       flags: 0
