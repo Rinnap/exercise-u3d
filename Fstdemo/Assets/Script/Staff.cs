@@ -36,40 +36,46 @@ public class Staff : MonoBehaviour
 
     }
 
-    //public void OnMouseDown()
-    //{
-    //    switch (staffStatus)
-    //    {
-    //        //未选中状态时，当没有角色被选中时即可被选中。
-    //        case 0:
-    //            if (!GameManager.isSelected)
-    //            {
-    //                GameManager.selected = gameObject;
-    //                GameManager.agent = GetComponent<NavMeshAgent>();
-    //                GameManager.ShowMoveRange();
-    //                Debug.Log("MouseDown");
-    //                changeStatus(1);
-    //                GameManager.isSelected = true;
-    //            }
-    //         break;
-    //            //选中状态时，不可操作。
-    //        case 1:
-    //            GameManager.CloseMoveRange();
-    //            GameManager.personui.SetActive(true);
-    //            break;
-    //            //被攻击状态,被攻击。
-    //        case 2:
-    //            underAttack();
-    //            break;
-    //            //结束状态时，不可操作。
-    //        case 3:
-    //            break;
-    //    }
-       
-        
-    //}
+    public void OnMouseDown()
+    {
+        switch (staffStatus)
+        {
+            //未选中状态时，当没有角色被选中时即可被选中。
+            case 0:
+                if (!GameManager.isSelected)
+                {
+                    //clearSkill();
+                    //insistSkill();
+                    skillset();
+                    GameManager.selected = gameObject;
+                    GameManager.agent = GetComponent<NavMeshAgent>();
+                    GameManager.ShowMoveRange();
+                    Debug.Log("MouseDown");
+                    changeStatus(1);
+                    GameManager.isSelected = true;
+                }
+                break;
+            //选中状态时，不可操作。
+            case 1:
+                GameManager.CloseMoveRange();
+                GameManager.personui.SetActive(true);
+                break;
+            //被攻击状态,被攻击。
+            case 2:
+                underAttack();
+                break;
+            //结束状态时，不可操作。
+            case 3:
 
-    public void ShowAttackRange()
+                break;
+            case 4:
+                GameManager.onClickStaff = gameObject;
+                GameManager.skill();
+                break;
+        }
+    }
+
+        public virtual void skillset()
     {
 
     }

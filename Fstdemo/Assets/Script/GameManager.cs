@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public Text turnUI;
     public Action skill;
 
+    public GameObject staffSkill;
     private bool isMove=false;
     private List<GameObject> moveList;
     private List<GameObject> attackList;
@@ -123,7 +124,7 @@ public class GameManager : MonoBehaviour
     // 显示ui
     public void ShowPersonUI()
     {
-        if (agent.remainingDistance < 0.2 && isMove)
+        if (selected!=null&&agent.remainingDistance < 0.2 && isMove)
         {
             Debug.Log("到达地点");
             isMove = false;
@@ -145,7 +146,7 @@ public class GameManager : MonoBehaviour
         foreach (var cell in cells)
         {
             cell.GetComponent<Cells>().attackCell.SetActive(false);
-           // cell.GetComponent<Cells>().skillCell.SetActive(false);
+            cell.GetComponent<Cells>().skillCell.SetActive(false);
         }
         if (selected != null)
         {
@@ -154,6 +155,7 @@ public class GameManager : MonoBehaviour
 
         isSelected = false;
         personui.SetActive(false);
+        staffSkill.SetActive(false); 
     }
 
     public void ShowSkillRange(int skillrange)
@@ -164,6 +166,7 @@ public class GameManager : MonoBehaviour
         //    isMove = false;
         //    CloseMoveRange();
         //CloseSkillRange();
+        staffSkill.SetActive(false);
         foreach (var cell in cells)
         {
             if (Mathf.Abs(Vector3.Distance(cell.transform.position, selected.transform.position)) <= 10)
@@ -178,12 +181,14 @@ public class GameManager : MonoBehaviour
             if (Mathf.Abs(cell.transform.position.x - selectedCell.transform.position.x) +
                Mathf.Abs(cell.transform.position.z - selectedCell.transform.position.z) <= skillrange)
             {
-                cell.GetComponent<Cells>().skillCell.SetActive(true);
-                attackList.Add(cell);
+                if (cell != selectedCell)
+                {
+                    cell.GetComponent<Cells>().skillCell.SetActive(true);
+                    attackList.Add(cell);
+                }
             }
         }
         //关闭脚下攻击范围
-        selectedCell.GetComponent<Cells>().skillCell.SetActive(false);
     }
     //切换玩家回合
     public void turnChange()

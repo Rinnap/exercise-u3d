@@ -42,8 +42,6 @@ public class follow : MonoBehaviour
 
     public void showSkillUI()
     {
-        attack.enabled = false;
-        skill.enabled = false;
-        stay.enabled = false;
+        //gameObject.SetActive(false);
     }
 }

@@ -29,4 +29,12 @@ public class skillku : MonoBehaviour
         Debug.Log(GameManager.onClickStaff + "收到10点治疗");
         GameManager.staffEnd();
     }
+
+    public void zhongji()
+    {
+        int hpchange = -(int)(GameManager.selected.GetComponent<Staff>().atk * 1.5);
+        GameManager.onClickStaff.GetComponent<Staff>().hpChange(hpchange);
+        Debug.Log(GameManager.onClickStaff + "收到"+hpchange+"伤害");
+        GameManager.staffEnd();
+    }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using System;
+
 public class Producer : Staff
 {
 
@@ -10,6 +12,8 @@ public class Producer : Staff
     public float yOffset;
     public Image staffSkill;
     public Button prefab;
+
+    private Action skillIns;
 
     public bool staffSkillshow;
     // Start is called before the first frame update
@@ -41,45 +45,45 @@ public class Producer : Staff
     }
 
 
-    public void OnMouseDown()
-    {
-        switch (staffStatus)
-        {
-            //未选中状态时，当没有角色被选中时即可被选中。
-            case 0:
-                if (!GameManager.isSelected)
-                {
-                    clearSkill();
-                    insistSkill();
-                    GameManager.selected = gameObject;
-                    GameManager.agent = GetComponent<NavMeshAgent>();
-                    GameManager.ShowMoveRange();
-                    Debug.Log("MouseDown");
-                    changeStatus(1);
-                    GameManager.isSelected = true;
-                }
-                break;
-            //选中状态时，不可操作。
-            case 1:
-                GameManager.CloseMoveRange();
-                GameManager.personui.SetActive(true);
-                break;
-            //被攻击状态,被攻击。
-            case 2:
-                underAttack();
-                break;
-            //结束状态时，不可操作。
-            case 3:
-                
-                break;
-            case 4:
-                GameManager.onClickStaff = gameObject;
-                GameManager.skill();
-                break;    
-        }
+    //public void OnMouseDown()
+    //{
+    //    switch (staffStatus)
+    //    {
+    //        //未选中状态时，当没有角色被选中时即可被选中。
+    //        case 0:
+    //            if (!GameManager.isSelected)
+    //            {
+    //                clearSkill();
+    //                insistSkill();
+    //                GameManager.selected = gameObject;
+    //                GameManager.agent = GetComponent<NavMeshAgent>();
+    //                GameManager.ShowMoveRange();
+    //                Debug.Log("MouseDown");
+    //                changeStatus(1);
+    //                GameManager.isSelected = true;
+    //            }
+    //            break;
+    //        //选中状态时，不可操作。
+    //        case 1:
+    //            GameManager.CloseMoveRange();
+    //            GameManager.personui.SetActive(true);
+    //            break;
+    //        //被攻击状态,被攻击。
+    //        case 2:
+    //            underAttack();
+    //            break;
+    //        //结束状态时，不可操作。
+    //        case 3:
 
+    //            break;
+    //        case 4:
+    //            GameManager.onClickStaff = gameObject;
+    //            GameManager.skill();
+    //            break;    
+    //    }
 
-    }
+//}
+    
     public void showstaffSkillUI()
     {
         staffSkill.enabled = true;
@@ -87,13 +91,33 @@ public class Producer : Staff
 
     }
 
-    public void insistSkill()
+    public override void skillset()
+    {
+   
+        clearSkill();
+        insistSkill("回复",huifu);
+        insistSkill("重击", zhongji);
+    }
+ 
+     
+
+    //public void insistSkill()
+    //{
+    //    Button skill1 = Instantiate(prefab);
+    //    skill1.transform.parent = staffSkill.transform;
+    //    Text skill1Text = skill1.transform.GetComponentInChildren<Text>();
+    //    skill1Text.text = "回复";
+    //    skill1.onClick.AddListener(huifu);
+    //}
+
+    public void insistSkill(string skillName,Action skillFf)
     {
         Button skill1 = Instantiate(prefab);
         skill1.transform.parent = staffSkill.transform;
         Text skill1Text = skill1.transform.GetComponentInChildren<Text>();
-        skill1Text.text = "回复";
-        skill1.onClick.AddListener(huifu);
+        skill1Text.text = skillName;
+        //skill1.onClick.AddListener(skillFf);
+        skill1.onClick.AddListener(() => { skillFf(); });
     }
 
     public void huifu()
@@ -101,9 +125,10 @@ public class Producer : Staff
         GameManager.ShowSkillRange(80);
         GameManager.skill = skillku.huifu;
     }
-    public void sanhua()
+    public void zhongji()
     {
-      //  GameManager.onClickCell.GetComponent<Staff>().hp;
+        GameManager.ShowAttackRange();
+        GameManager.skill = skillku.zhongji;
     }
     public void skill3()
     {

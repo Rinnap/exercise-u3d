@@ -5803,7 +5803,6 @@ GameObject:
   m_Component:
   - component: {fileID: 348483356}
   - component: {fileID: 348483355}
-  - component: {fileID: 348483357}
   - component: {fileID: 348483358}
   m_Layer: 0
   m_Name: GameManager
@@ -5832,6 +5831,7 @@ MonoBehaviour:
   staffs: []
   turn: 0
   turnUI: {fileID: 438660241}
+  staffSkill: {fileID: 511889395}
   selectedCell: {fileID: 0}
   onClickStaff: {fileID: 0}
 --- !u!4 &348483356
@@ -5850,26 +5850,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &348483357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 348483354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76fbb3faf175b41788d1ad9568e17314, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  xOffset: -100
-  yOffset: 60
-  attack: {fileID: 873723084}
-  skill: {fileID: 662864959}
-  stay: {fileID: 1310255517}
-  staffskill: {fileID: 511889398}
-  xskillOffset: -110
-  yskillOffset: -20
 --- !u!114 &348483358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11682,18 +11662,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 348483357}
-        m_TargetAssemblyTypeName: follow, Assembly-CSharp
-        m_MethodName: showSkillUI
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 976904015}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -16294,6 +16262,7 @@ GameObject:
   - component: {fileID: 976904018}
   - component: {fileID: 976904017}
   - component: {fileID: 976904020}
+  - component: {fileID: 976904021}
   m_Layer: 5
   m_Name: personui
   m_TagString: Untagged
@@ -16395,6 +16364,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 334aa879e1d8140adb25ee01f2e2978d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &976904021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976904015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76fbb3faf175b41788d1ad9568e17314, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xOffset: -100
+  yOffset: 60
+  attack: {fileID: 873723084}
+  skill: {fileID: 662864959}
+  stay: {fileID: 1310255517}
+  staffskill: {fileID: 511889398}
+  xskillOffset: -110
+  yskillOffset: -20
 --- !u!1 &978837915 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3288384740665199458, guid: eadcb6c2f0bd64f9dbd88b8aafeb5179, type: 3}

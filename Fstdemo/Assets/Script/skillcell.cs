@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class skillcell : MonoBehaviour
 {
-    private GameManager GameManager;
-    private GameObject staffUnderattack;
+    //private GameManager GameManager;
+    //private GameObject staffUnderattack;
     public GameObject cell;
     private int staffstatusback;
 
@@ -17,15 +17,22 @@ public class skillcell : MonoBehaviour
     void OnEnable()
     {
         //遍历角色
-        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        //GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         //staffstatusback=GameManager.
-        cell.GetComponent<Cells>().staffOnCell.GetComponent<Staff>().changeStatus(4);
-        
+        if (cell.GetComponent<Cells>().staffOnCell!= null)
+        {
+            staffstatusback = cell.GetComponent<Cells>().staffOnCell.GetComponent<Staff>().staffStatus;
+            cell.GetComponent<Cells>().staffOnCell.GetComponent<Staff>().changeStatus(4);
+        }
+   
     }
 
-    private void OnDisable()
+    void OnDisable()
     {
-       staffUnderattack.GetComponent<Staff>().changeStatus(3);
+        if (cell.GetComponent<Cells>().staffOnCell != null)
+        {
+            cell.GetComponent<Cells>().staffOnCell.GetComponent<Staff>().changeStatus(staffstatusback);
+        }
     }
     // Update is called once per frame
     void Update()
