@@ -11,6 +11,7 @@ public class Cells : MonoBehaviour
     public GameObject staffOnCell;
     private GameObject[] staffs;
     private GameManager GameManager;
+    private bool hasStaff;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -27,6 +28,7 @@ public class Cells : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        hasStaff = false;
         foreach (var staff in staffs)
         {
             //遍历出正上方的队伍不同的角色
@@ -34,7 +36,12 @@ public class Cells : MonoBehaviour
             {
                 staffOnCell = staff;
                 staff.GetComponent<Staff>().OnCell = gameObject;
+                hasStaff = true;
             }
+        }
+        if(!hasStaff)
+        {
+            staffOnCell = null;
         }
     }
     //private void OnMouseDown()

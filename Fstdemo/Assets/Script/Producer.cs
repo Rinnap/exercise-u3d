@@ -90,7 +90,7 @@ public class Producer : Staff
         //staffSkillshow = true;
 
     }
-
+    //为技能槽安装技能
     public override void skillset()
     {
    
@@ -109,7 +109,7 @@ public class Producer : Staff
     //    skill1Text.text = "回复";
     //    skill1.onClick.AddListener(huifu);
     //}
-
+    //技能槽安装技能的方法
     public void insistSkill(string skillName,Action skillFf)
     {
         Button skill1 = Instantiate(prefab);
@@ -120,11 +120,13 @@ public class Producer : Staff
         skill1.onClick.AddListener(() => { skillFf(); });
     }
 
+    //技能回复
     public void huifu()
     {
         GameManager.ShowSkillRange(80);
         GameManager.skill = skillku.huifu;
     }
+    //技能重击
     public void zhongji()
     {
         GameManager.ShowAttackRange();

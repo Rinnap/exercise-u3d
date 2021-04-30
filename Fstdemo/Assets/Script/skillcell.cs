@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class skillcell : MonoBehaviour
 {
-    //private GameManager GameManager;
+    private GameManager GameManager;
     //private GameObject staffUnderattack;
     public GameObject cell;
     private int staffstatusback;
@@ -17,9 +17,9 @@ public class skillcell : MonoBehaviour
     void OnEnable()
     {
         //遍历角色
-        //GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         //staffstatusback=GameManager.
-        if (cell.GetComponent<Cells>().staffOnCell!= null)
+        if (cell.GetComponent<Cells>().staffOnCell != null && GameManager.turn % 2 != cell.GetComponent<Cells>().staffOnCell.GetComponent<Staff>().party)
         {
             staffstatusback = cell.GetComponent<Cells>().staffOnCell.GetComponent<Staff>().staffStatus;
             cell.GetComponent<Cells>().staffOnCell.GetComponent<Staff>().changeStatus(4);

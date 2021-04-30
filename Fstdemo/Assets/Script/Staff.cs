@@ -124,7 +124,7 @@ public class Staff : MonoBehaviour
                 break;
             default:
                 break;
-        }//0是未选中，1是选中，2是即将被攻击,3是行动结束。
+        }//0是未选中，1是选中，2是即将被攻击,3是行动结束,4是回复技能释放。
     }
 
     public void underAttack()
