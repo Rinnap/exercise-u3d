@@ -12,37 +12,43 @@ public class Producer : Staff
     public float yOffset;
     public Image staffSkill;
     public Button prefab;
-
     private Action skillIns;
+    
+
 
     public bool staffSkillshow;
+
     // Start is called before the first frame update
     //void Start()
     //{
-
+    //    //atk = 20;
+    //    //a = 20;
     //}
 
-    void Update()
-    {
-        //Vector2 player2DPosition = Camera.main.WorldToScreenPoint(GameManager.selected.transform.position);
-        //将玩家坐标转化为屏幕
 
-        ////血条超出屏幕就不显示
-        //if (player2DPosition.x > Screen.width || player2DPosition.x < 0 || player2DPosition.y > Screen.height || player2DPosition.y < 0)
-        //{
-        //    attack.gameObject.SetActive(false);
-        //}
-        //else
-        //{
-        //    attack.gameObject.SetActive(true);
-        //}
-        //if (staffSkillshow)
-        //{
-        //    Vector2 player2DPosition = Camera.main.WorldToScreenPoint(gameObject.transform.position);
-        //    staffSkill.rectTransform.position = player2DPosition + new Vector2(xOffset, yOffset);
-        //}
 
-    }
+    //void Update()
+    //{
+
+    //    //Vector2 player2DPosition = Camera.main.WorldToScreenPoint(GameManager.selected.transform.position);
+    //    //将玩家坐标转化为屏幕
+
+    //    ////血条超出屏幕就不显示
+    //    //if (player2DPosition.x > Screen.width || player2DPosition.x < 0 || player2DPosition.y > Screen.height || player2DPosition.y < 0)
+    //    //{
+    //    //    attack.gameObject.SetActive(false);
+    //    //}
+    //    //else
+    //    //{
+    //    //    attack.gameObject.SetActive(true);
+    //    //}
+    //    //if (staffSkillshow)
+    //    //{
+    //    //    Vector2 player2DPosition = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+    //    //    staffSkill.rectTransform.position = player2DPosition + new Vector2(xOffset, yOffset);
+    //    //}
+
+    //}
 
 
     //public void OnMouseDown()
@@ -82,8 +88,19 @@ public class Producer : Staff
     //            break;    
     //    }
 
-//}
-    
+    //}
+    //初始化角色数据
+    public override void atrribteset()
+    {
+        atk=10;
+        a = 20;
+       hpmax=20;
+       hp=hpmax;
+       magicatk=10;
+        staffName = "程序员";
+    }
+
+    //显示技能信息
     public void showstaffSkillUI()
     {
         staffSkill.enabled = true;
@@ -93,13 +110,12 @@ public class Producer : Staff
     //为技能槽安装技能
     public override void skillset()
     {
-   
         clearSkill();
         insistSkill("回复",huifu);
         insistSkill("重击", zhongji);
+        insistSkill("冲击", chongji);
     }
  
-     
 
     //public void insistSkill()
     //{
@@ -120,6 +136,11 @@ public class Producer : Staff
         skill1.onClick.AddListener(() => { skillFf(); });
     }
 
+    public void chongji()
+    {
+        GameManager.ShowAttackRange(117);
+        GameManager.skill = skillku.chongji;
+    }
     //技能回复
     public void huifu()
     {
@@ -129,7 +150,7 @@ public class Producer : Staff
     //技能重击
     public void zhongji()
     {
-        GameManager.ShowAttackRange();
+        GameManager.ShowAttackRange(80);
         GameManager.skill = skillku.zhongji;
     }
     public void skill3()

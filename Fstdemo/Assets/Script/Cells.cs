@@ -22,24 +22,29 @@ public class Cells : MonoBehaviour
     {
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         staffs = GameObject.FindGameObjectsWithTag("staff");
-    
+        setStaff();
     }
 
     // Update is called once per frame
     void Update()
     {
+       
+    }
+
+    public void setStaff()
+    {
         hasStaff = false;
         foreach (var staff in staffs)
         {
             //遍历出正上方的队伍不同的角色
-            if (Mathf.Abs(Vector3.Distance(staff.transform.position, gameObject.transform.position)) <= 10)
+            if (Mathf.Abs(Vector3.Distance(staff.transform.position, gameObject.transform.position)) <= 10&&staff.activeSelf)
             {
                 staffOnCell = staff;
                 staff.GetComponent<Staff>().OnCell = gameObject;
                 hasStaff = true;
             }
         }
-        if(!hasStaff)
+        if (!hasStaff)
         {
             staffOnCell = null;
         }

@@ -17,16 +17,18 @@ public class GameManager : MonoBehaviour
     public Text turnUI;
     public Action skill;
 
+    public skillku skillku;
     public GameObject staffSkill;
-    private bool isMove=false;
+    public bool isMove=false;
     private List<GameObject> moveList;
     private List<GameObject> attackList;
     public GameObject selectedCell;
     public GameObject onClickStaff;
-
+    public Text tishiText;
     // Start is called before the first frame update
     void Start()
     {
+        skillku = GameObject.Find("GameManager").GetComponent<skillku>();
         cells = GameObject.FindGameObjectsWithTag("cell");
         staffs = GameObject.FindGameObjectsWithTag("staff");
         moveList = new List<GameObject>();
@@ -40,6 +42,10 @@ public class GameManager : MonoBehaviour
     {
         //ShowAttackRange();
         ShowPersonUI();
+        //if (selected != null)
+        //{
+        //    Debug.Log("gamemanageer:" + selected.GetComponent<Staff>().a);
+        //}
     }
     //显示攻击范围
     public void ShowMoveRange()
@@ -78,16 +84,22 @@ public class GameManager : MonoBehaviour
         moveList.Clear();
     }
 
-
+    //设置攻击
+    public void AttackSet()
+    {
+        ShowAttackRange(selected.GetComponent<Staff>().attackRange);
+        skill = skillku.gongji;
+    }
 
     //显示攻击范围
-    public void ShowAttackRange()
+    public void ShowAttackRange(int range)
     {
         //if (agent.remainingDistance < 0.2 && isMove)
         //{
         //    Debug.Log("到达地点");
         //    isMove = false;
         //    CloseMoveRange();
+        staffSkill.SetActive(false); 
         CloseAttackRange();
             foreach (var cell in cells)
             {
@@ -99,7 +111,7 @@ public class GameManager : MonoBehaviour
 
             foreach (var cell in cells)
             {
-                int range = selected.GetComponent<Staff>().attackRange;
+                //int range = selected.GetComponent<Staff>().attackRange;
                 if (Mathf.Abs(cell.transform.position.x - selectedCell.transform.position.x) +
                    Mathf.Abs(cell.transform.position.z - selectedCell.transform.position.z) <= range)
                 {
@@ -130,12 +142,16 @@ public class GameManager : MonoBehaviour
             isMove = false;
             CloseMoveRange();
             personui.SetActive(true);
+          setStaff();
         }
     }
 
     //玩家移动
     public void moveStaff(Vector3 movePoint)
     {
+        agent.speed = 100;
+        agent.angularSpeed = 120;
+        agent.acceleration = 200;
         agent.SetDestination(movePoint);
         isMove = true;
     }
@@ -236,5 +252,32 @@ public class GameManager : MonoBehaviour
     public void skillAction()
     {
         
+    }
+
+    public void tishi(string text)
+    {
+        if (!tishiText.enabled)
+        {
+            StartCoroutine("textControl");
+        }
+        tishiText.enabled = true;
+        tishiText.text = text;
+
+    }
+
+    IEnumerator textControl()
+    {
+        Debug.Log("携程已开启");
+        yield return new WaitForSeconds(3);
+        tishiText.enabled = false;
+    }
+
+    //重新设置cell绑定的staff
+    public void setStaff()
+    {
+        foreach (var cell in cells)
+        {
+            cell.GetComponent<Cells>().setStaff();
+        }
     }
 }

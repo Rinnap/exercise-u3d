@@ -29,7 +29,7 @@ public class skillcell : MonoBehaviour
 
     void OnDisable()
     {
-        if (cell.GetComponent<Cells>().staffOnCell != null)
+        if (cell.GetComponent<Cells>().staffOnCell != null && GameManager.turn % 2 != cell.GetComponent<Cells>().staffOnCell.GetComponent<Staff>().party)
         {
             cell.GetComponent<Cells>().staffOnCell.GetComponent<Staff>().changeStatus(staffstatusback);
         }

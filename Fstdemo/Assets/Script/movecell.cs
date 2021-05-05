@@ -23,8 +23,8 @@ public class movecell : MonoBehaviour
     {
         Vector3 movepoint = gameObject.transform.position;
         GameManager.moveStaff(movepoint);
-        Debug.Log("cellshere:" + gameObject.transform.position);
-        Debug.Log("movehere:" + movepoint);
+        //Debug.Log("cellshere:" + gameObject.transform.position);
+        //Debug.Log("movehere:" + movepoint);
         GameManager.CloseMoveRange();
     }
 

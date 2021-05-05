@@ -13,10 +13,12 @@ public class Staff : MonoBehaviour
     public int party;//0是蓝队，1是黄队。
     public GameObject staffHead;
 
-    public int atk = 10;
+    public string staffName="史学家";
+    public int atk;
+    public int a;
     public int hpmax;
     public int hp;
-    public int magicatk = 10;
+    public int magicatk;
     public GameObject OnCell;
 
     // public NavMeshAgent agent;
@@ -28,12 +30,13 @@ public class Staff : MonoBehaviour
     {
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         skillku = GameObject.Find("GameManager").GetComponent<skillku>();
+        atrribteset();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+   
     }
 
     public void OnMouseDown()
@@ -46,6 +49,7 @@ public class Staff : MonoBehaviour
                 {
                     //clearSkill();
                     //insistSkill();
+                    //Debug.Log("staff" + a);
                     skillset();
                     GameManager.selected = gameObject;
                     GameManager.agent = GetComponent<NavMeshAgent>();
@@ -62,11 +66,11 @@ public class Staff : MonoBehaviour
                 break;
             //被攻击状态,被攻击。
             case 2:
-                underAttack();
+                GameManager.onClickStaff = gameObject;
+                GameManager.skill();
                 break;
             //结束状态时，不可操作。
             case 3:
-
                 break;
             case 4:
                 GameManager.onClickStaff = gameObject;
@@ -79,6 +83,11 @@ public class Staff : MonoBehaviour
     {
 
     }
+      public virtual void atrribteset()
+    {
+
+    }
+
 
     //public void SetStaffOutline(string linemode)
     //{
@@ -127,22 +136,22 @@ public class Staff : MonoBehaviour
         }//0是未选中，1是选中，2是即将被攻击,3是行动结束,4是回复技能释放。
     }
 
-    public void underAttack()
-    {
-        //hp -= GameManager.selected.GetComponent<Staff>().atk;
-        hpChange(-GameManager.selected.GetComponent<Staff>().atk);
-        Debug.Log(gameObject + "收到" + GameManager.selected.GetComponent<Staff>().atk + "点伤害,还剩余" + hp + "点血量");
-        changeStatus(3);
-        GameManager.staffEnd();
-
-       
-       
-    }
+    //public void underAttack()
+    //{
+    //    //hp -= GameManager.selected.GetComponent<Staff>().atk;
+    //    hpChange(-GameManager.selected.GetComponent<Staff>().atk);
+    //    Debug.Log(gameObject + "收到" + GameManager.selected.GetComponent<Staff>().atk + "点伤害,还剩余" + hp + "点血量");
+    //    changeStatus(3);
+    //    GameManager.staffEnd();
+    //}
 
     public void staffDeath()
     {
        staffHead.GetComponent<StaffHeadUI>().deadGray();
+         OnCell.GetComponent<Cells>().staffOnCell = null;
        gameObject.SetActive(false);
+        //Destroy(gameObject);
+   
     }
 
     public void underHeal(int healNum)
@@ -156,8 +165,18 @@ public class Staff : MonoBehaviour
 
     public void hpChange(int numChange)
     {
+       
         hp = Mathf.Clamp(hp + numChange , 0, hpmax);
         staffHead.GetComponent<StaffHeadUI>().hpchange(hp, hpmax);
+        if (numChange > 0)
+        {
+            GameManager.tishi(staffName+"收到"+GameManager.selected.GetComponent<Staff>().staffName+numChange+"点治疗，还剩余"+hp+"点生命值");
+        }
+        else if (numChange < 0)
+        {
+            GameManager.tishi(staffName + "收到" + GameManager.selected.GetComponent<Staff>().staffName + numChange + "点伤害，还剩余" + hp + "点生命值");
+
+        }
         if (hp <= 0)
         {
             staffDeath();
