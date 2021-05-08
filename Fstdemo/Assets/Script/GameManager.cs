@@ -89,6 +89,7 @@ public class GameManager : MonoBehaviour
     {
         ShowAttackRange(selected.GetComponent<Staff>().attackRange);
         skill = skillku.gongji;
+        skillku.skillRange = 1;
     }
 
     //显示攻击范围
@@ -171,7 +172,8 @@ public class GameManager : MonoBehaviour
 
         isSelected = false;
         personui.SetActive(false);
-        staffSkill.SetActive(false); 
+        staffSkill.SetActive(false);
+        closeUnAttackRange();
     }
 
     public void ShowSkillRange(int skillrange)
@@ -253,7 +255,7 @@ public class GameManager : MonoBehaviour
     {
         
     }
-
+    //文字提示
     public void tishi(string text)
     {
         if (!tishiText.enabled)
@@ -267,7 +269,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator textControl()
     {
-        Debug.Log("携程已开启");
+        Debug.Log("提示倒计时携程已开启");
         yield return new WaitForSeconds(3);
         tishiText.enabled = false;
     }
@@ -278,6 +280,30 @@ public class GameManager : MonoBehaviour
         foreach (var cell in cells)
         {
             cell.GetComponent<Cells>().setStaff();
+        }
+    }
+
+    //显示范围攻击技能的范围
+    public void showUnAttackRange(int range,Vector3 position)
+    {
+   
+        foreach (var cell in cells)
+        {
+
+            if (Mathf.Abs(cell.transform.position.x - position.x) +
+               Mathf.Abs(cell.transform.position.z - position.z) <= range)
+            {
+                    cell.GetComponent<Cells>().unattackCell.SetActive(true);
+            }
+        }
+    }
+
+    //关闭范围攻击技能的范围
+    public void closeUnAttackRange()
+    {
+        foreach (var cell in cells)
+        {
+            cell.GetComponent<Cells>().unattackCell.SetActive(false);
         }
     }
 }

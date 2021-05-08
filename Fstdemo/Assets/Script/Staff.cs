@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -8,10 +9,17 @@ public class Staff : MonoBehaviour
 {
     public int moveRange;
     public int attackRange;
-    public int staffStatus;
+    public int staffStatus;//0是未选中，1是选中，2是即将被攻击,3是行动结束,4是回复技能释放。
     public Light statusLight;
     public int party;//0是蓝队，1是黄队。
     public GameObject staffHead;
+    public float xOffset;
+    public float yOffset;
+    public Image staffSkill;
+    public Button prefab;
+    private Action skillIns;
+    public Action<int> mouseOver;
+    public bool staffSkillshow;
 
     public string staffName="史学家";
     public int atk;
@@ -38,6 +46,60 @@ public class Staff : MonoBehaviour
     {
    
     }
+
+    public void OnMouseEnter()
+    {
+        switch (staffStatus)
+        {
+            //未选中状态
+            case 0:
+  
+                break;
+            //选中状态时
+            case 1:
+   
+                break;
+            //被攻击状态时，显示技能范围。
+            case 2:
+                GameManager.showUnAttackRange(skillku.skillRange,OnCell.transform.position);
+                break;
+            //结束状态时。
+            case 3:
+                break;
+            //
+            case 4:
+
+                break;
+        }
+    }
+
+    public void OnMouseExit()
+    {
+        switch (staffStatus)
+        {
+            //未选中状态
+            case 0:
+
+                break;
+            //选中状态时
+            case 1:
+
+                break;
+            //被攻击状态时，显示技能范围。
+            case 2:
+                GameManager.closeUnAttackRange();
+                break;
+            //结束状态时。
+            case 3:
+                break;
+            //
+            case 4:
+
+                break;
+        }
+    }
+
+
 
     public void OnMouseDown()
     {
@@ -181,5 +243,31 @@ public class Staff : MonoBehaviour
         {
             staffDeath();
         }
+    }
+
+    public void insistSkill(string skillName, Action skillFf)
+    {
+        Button skill1 = Instantiate(prefab);
+        skill1.transform.parent = staffSkill.transform;
+        Text skill1Text = skill1.transform.GetComponentInChildren<Text>();
+        skill1Text.text = skillName;
+        //skill1.onClick.AddListener(skillFf);
+        skill1.onClick.AddListener(() => { skillFf(); });
+    }
+
+    public void clearSkill()
+    {
+
+        for (int i = 0; i < staffSkill.transform.childCount; i++)
+        {
+            Destroy(staffSkill.transform.GetChild(i).gameObject);
+        }
+    }
+
+    public void showstaffSkillUI()
+    {
+        staffSkill.enabled = true;
+        //staffSkillshow = true;
+
     }
 }

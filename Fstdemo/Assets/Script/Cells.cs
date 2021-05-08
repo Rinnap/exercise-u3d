@@ -8,6 +8,7 @@ public class Cells : MonoBehaviour
     public GameObject moveCell;
     public GameObject attackCell;
     public GameObject skillCell;
+    public GameObject unattackCell;
     public GameObject staffOnCell;
     private GameObject[] staffs;
     private GameManager GameManager;

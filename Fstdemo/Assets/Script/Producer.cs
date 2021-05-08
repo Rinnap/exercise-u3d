@@ -8,15 +8,7 @@ using System;
 public class Producer : Staff
 {
 
-    public float xOffset;
-    public float yOffset;
-    public Image staffSkill;
-    public Button prefab;
-    private Action skillIns;
-    
 
-
-    public bool staffSkillshow;
 
     // Start is called before the first frame update
     //void Start()
@@ -97,16 +89,11 @@ public class Producer : Staff
        hpmax=20;
        hp=hpmax;
        magicatk=10;
-        staffName = "程序员";
+       staffName = "程序员";
     }
 
     //显示技能信息
-    public void showstaffSkillUI()
-    {
-        staffSkill.enabled = true;
-        //staffSkillshow = true;
 
-    }
     //为技能槽安装技能
     public override void skillset()
     {
@@ -114,6 +101,7 @@ public class Producer : Staff
         insistSkill("回复",huifu);
         insistSkill("重击", zhongji);
         insistSkill("冲击", chongji);
+        insistSkill("散射", sanshe);
     }
  
 
@@ -126,20 +114,29 @@ public class Producer : Staff
     //    skill1.onClick.AddListener(huifu);
     //}
     //技能槽安装技能的方法
-    public void insistSkill(string skillName,Action skillFf)
-    {
-        Button skill1 = Instantiate(prefab);
-        skill1.transform.parent = staffSkill.transform;
-        Text skill1Text = skill1.transform.GetComponentInChildren<Text>();
-        skill1Text.text = skillName;
-        //skill1.onClick.AddListener(skillFf);
-        skill1.onClick.AddListener(() => { skillFf(); });
-    }
-
-    public void chongji()
+    //public void insistSkill(string skillName,Action skillFf)
+    //{
+    //    Button skill1 = Instantiate(prefab);
+    //    skill1.transform.parent = staffSkill.transform;
+    //    Text skill1Text = skill1.transform.GetComponentInChildren<Text>();
+    //    skill1Text.text = skillName;
+    //    //skill1.onClick.AddListener(skillFf);
+    //    skill1.onClick.AddListener(() => { skillFf(); });
+    //}
+    //技能散射
+    public void sanshe()
     {
         GameManager.ShowAttackRange(117);
+        GameManager.skill = skillku.sanshe;
+        //mouseOver = skillku.UnAttackRange;
+        skillku.skillRange = 80;
+    }
+    //技能冲击
+    public void chongji()
+    {
+        GameManager.ShowAttackRange(80);
         GameManager.skill = skillku.chongji;
+        skillku.skillRange = 1;
     }
     //技能回复
     public void huifu()
@@ -152,17 +149,11 @@ public class Producer : Staff
     {
         GameManager.ShowAttackRange(80);
         GameManager.skill = skillku.zhongji;
+        skillku.skillRange = 1;
     }
     public void skill3()
     {
         Debug.Log("发动技能3");
     }
 
-    private void clearSkill()
-    {
-
-        for (int i = 0; i < staffSkill.transform.childCount; i++) {  
-            Destroy (staffSkill.transform.GetChild (i).gameObject);  
-        }  
-    }
 }
