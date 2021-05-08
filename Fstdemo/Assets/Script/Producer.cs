@@ -99,7 +99,7 @@ public class Producer : Staff
     {
         clearSkill();
         insistSkill("回复",huifu);
-        insistSkill("重击", zhongji);
+        insistSkill("穿刺", ChuanCi);
         insistSkill("冲击", chongji);
         insistSkill("散射", sanshe);
     }
@@ -130,6 +130,7 @@ public class Producer : Staff
         GameManager.skill = skillku.sanshe;
         //mouseOver = skillku.UnAttackRange;
         skillku.skillRange = 80;
+        GameManager.showUnAttackRange = GameManager.GeneralAttackRange;
     }
     //技能冲击
     public void chongji()
@@ -137,12 +138,15 @@ public class Producer : Staff
         GameManager.ShowAttackRange(80);
         GameManager.skill = skillku.chongji;
         skillku.skillRange = 1;
+        GameManager.showUnAttackRange = GameManager.GeneralAttackRange;
     }
     //技能回复
     public void huifu()
     {
         GameManager.ShowSkillRange(80);
         GameManager.skill = skillku.huifu;
+        skillku.skillRange = 1;
+        GameManager.showUnAttackRange = GameManager.GeneralAttackRange;
     }
     //技能重击
     public void zhongji()
@@ -150,7 +154,17 @@ public class Producer : Staff
         GameManager.ShowAttackRange(80);
         GameManager.skill = skillku.zhongji;
         skillku.skillRange = 1;
+        GameManager.showUnAttackRange = GameManager.GeneralAttackRange;
     }
+
+    public void ChuanCi()
+    {
+        GameManager.ShowAttackRange(40);
+        GameManager.skill = skillku.ChuanCi;
+        skillku.skillRange = 80;
+        GameManager.showUnAttackRange = skillku.ChuanCiRange;
+    }
+
     public void skill3()
     {
         Debug.Log("发动技能3");

@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public int turn=0;
     public Text turnUI;
     public Action skill;
-
+    public Action<int,Vector3> showUnAttackRange;
     public skillku skillku;
     public GameObject staffSkill;
     public bool isMove=false;
@@ -284,7 +284,7 @@ public class GameManager : MonoBehaviour
     }
 
     //显示范围攻击技能的范围
-    public void showUnAttackRange(int range,Vector3 position)
+    public void GeneralAttackRange(int range,Vector3 position)
     {
    
         foreach (var cell in cells)

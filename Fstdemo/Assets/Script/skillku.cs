@@ -172,35 +172,99 @@ public class skillku : MonoBehaviour
         Debug.Log("sanshezhixing");
     }
 
-    //IEnumerator sansheztest()
-    //{
-    //    yield return new WaitForSeconds(0.5f);
-    //    Debug.Log("sanshezhixing");
-       
-    //}
-    public void unAttackRange(int range)
-    {
-        GameObject selectedCell=null;
-        List<GameObject> unattackList=new List<GameObject>();
-        foreach (var cell in cells)
-        {
-            if (Mathf.Abs(Vector3.Distance(cell.transform.position, gameObject.transform.position)) <= 10)
-            {
-                selectedCell = cell;
-            }
-        }
 
+    //技能穿刺
+    public void ChuanCi()
+    {
+        Vector3 distantVector = GameManager.selected.GetComponent<Staff>().OnCell.transform.position - GameManager.onClickStaff.GetComponent<Staff>().OnCell.transform.position;
+        Vector3 normalizedVector = -distantVector .normalized;
+        Debug.Log(distantVector);
+        List<GameObject> unSkillsCells = new List<GameObject>();//技能影响的格子
+
+        //找出目标附近的格子
         foreach (var cell in cells)
         {
-            //int range = selected.GetComponent<Staff>().attackRange;
-            if (Mathf.Abs(cell.transform.position.x - selectedCell.transform.position.x) +
-               Mathf.Abs(cell.transform.position.z - selectedCell.transform.position.z) <= range)
+            if (Mathf.Abs(cell.transform.position.x - GameManager.onClickStaff.GetComponent<Staff>().OnCell.transform.position.x) +
+               Mathf.Abs(cell.transform.position.z - GameManager.onClickStaff.GetComponent<Staff>().OnCell.transform.position.z) <= skillRange)
             {
-                cell.GetComponent<Cells>().unattackCell.SetActive(true);
-                unattackList.Add(cell);
+                // Debug.Log("测试节点0" + cell);
+                unSkillsCells.Add(cell);
             }
         }
+        foreach(var cell in unSkillsCells)
+        {
+            Vector3 occ = (cell.transform.position - GameManager.onClickStaff.GetComponent<Staff>().OnCell.transform.position).normalized;
+            //Debug.Log("测试节点normalized" + cell + normalizedVector);
+            //Debug.Log("测试节点0" + cell + occ);
+            if (occ==normalizedVector&& cell.GetComponent<Cells>().staffOnCell!=null && GameManager.turn % 2 == cell.GetComponent<Cells>().staffOnCell.GetComponent<Staff>().party)
+            {
+                //Debug.Log("测试节点normalized" + cell + normalizedVector);
+                //Debug.Log("测试节点0" + cell+occ);
+               // cell.GetComponent<Cells>().unattackCell.SetActive(true);
+                cell.GetComponent<Cells>().staffOnCell.GetComponent<Staff>().hpChange(-GameManager.selected.GetComponent<Staff>().atk / 2);
+            }
+        }
+        GameManager.onClickStaff.GetComponent<Staff>().hpChange(-GameManager.selected.GetComponent<Staff>().atk / 2);
+        GameManager.staffEnd();
     }
+
+    //显示穿刺范围
+    public void ChuanCiRange(int range, Vector3 position)
+    {
+        Vector3 distantVector = GameManager.selected.GetComponent<Staff>().OnCell.transform.position - position;
+        Vector3 normalizedVector = -distantVector.normalized;
+        Debug.Log(distantVector);
+        List<GameObject> unSkillsCells = new List<GameObject>();//技能影响的格子
+
+        //找出目标附近的格子
+        foreach (var cell in cells)
+        {
+            if (Mathf.Abs(cell.transform.position.x - position.x) +
+               Mathf.Abs(cell.transform.position.z - position.z) <= range)
+            {
+                // Debug.Log("测试节点0" + cell);
+                unSkillsCells.Add(cell);
+            }
+        }
+        foreach (var cell in unSkillsCells)
+        {
+            Vector3 occ = (cell.transform.position - position).normalized;
+            //Debug.Log("测试节点normalized" + cell + normalizedVector);
+            //Debug.Log("测试节点0" + cell + occ);
+            if (occ == normalizedVector || occ ==  new Vector3(0, 0, 0))
+            {
+                //Debug.Log("测试节点normalized" + cell + normalizedVector);
+                //Debug.Log("测试节点0" + cell+occ);
+                cell.GetComponent<Cells>().unattackCell.SetActive(true);
+            }
+        }
+        
+    }
+
+
+    //public void unAttackRange(int range)
+    //{
+    //    GameObject selectedCell=null;
+    //    List<GameObject> unattackList=new List<GameObject>();
+    //    foreach (var cell in cells)
+    //    {
+    //        if (Mathf.Abs(Vector3.Distance(cell.transform.position, gameObject.transform.position)) <= 10)
+    //        {
+    //            selectedCell = cell;
+    //        }
+    //    }
+
+    //    foreach (var cell in cells)
+    //    {
+    //        //int range = selected.GetComponent<Staff>().attackRange;
+    //        if (Mathf.Abs(cell.transform.position.x - selectedCell.transform.position.x) +
+    //           Mathf.Abs(cell.transform.position.z - selectedCell.transform.position.z) <= range)
+    //        {
+    //            cell.GetComponent<Cells>().unattackCell.SetActive(true);
+    //            unattackList.Add(cell);
+    //        }
+    //    }
+    //}
     private void cellSearch(int range)
     {
   

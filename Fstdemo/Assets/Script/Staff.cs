@@ -68,7 +68,7 @@ public class Staff : MonoBehaviour
                 break;
             //
             case 4:
-
+                 GameManager.showUnAttackRange(skillku.skillRange,OnCell.transform.position);
                 break;
         }
     }
@@ -94,7 +94,7 @@ public class Staff : MonoBehaviour
                 break;
             //
             case 4:
-
+                GameManager.closeUnAttackRange();
                 break;
         }
     }
