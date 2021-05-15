@@ -10,11 +10,13 @@ public class skillku : MonoBehaviour
     public Staff onAttackstaff;
     public Staff attackstaff;
     public int skillRange;
-
+    //public List<BUffData> buffku;
+   // private BuffKu buffku;
     private Action move;//移动函数
     private GameObject[] cells;//所有格子
     void Start()
     {
+       // buffku = gameObject.GetComponent<BuffKu>();
         GameManager = gameObject.GetComponent<GameManager>();
         cells = GameObject.FindGameObjectsWithTag("cell");
     }
@@ -34,7 +36,7 @@ public class skillku : MonoBehaviour
     public void huifu()
     {
         GameManager.onClickStaff.GetComponent<Staff>().hpChange(GameManager.selected.GetComponent<Staff>().magicatk);
-        Debug.Log(GameManager.onClickStaff + "收到10点治疗");
+
         GameManager.staffEnd();
     }
 
@@ -44,7 +46,6 @@ public class skillku : MonoBehaviour
 
         int hpchange = -(int)(GameManager.selected.GetComponent<Staff>().atk * 1.5);
         GameManager.onClickStaff.GetComponent<Staff>().hpChange(hpchange);
-        Debug.Log(GameManager.onClickStaff + "收到"+hpchange+"伤害");
         GameManager.staffEnd();
     }
 
@@ -240,6 +241,19 @@ public class skillku : MonoBehaviour
         }
         
     }
+
+    //攻击力强化
+    //public void QiangHua()
+    //{
+    //    BUffData qianghua=new BUffData();
+    //    qianghua.BuffId = 1;
+    //    qianghua.BuffMaxRound = 5;
+    //    qianghua.Num = 1.5f;
+    //    qianghua.buffType = BuffType.AddAtk;
+    //    GameManager.onClickStaff.GetComponent<StaffBuffs>().insistBuff(qianghua);
+    //    GameManager.tishi(GameManager.onClickStaff + "攻击力收到强化，持续5回合");
+    //    GameManager.staffEnd();
+    //}
 
 
     //public void unAttackRange(int range)

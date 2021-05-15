@@ -17,9 +17,11 @@ public class Staff : MonoBehaviour
     public float yOffset;
     public Image staffSkill;
     public Button prefab;
+
     private Action skillIns;
     public Action<int> mouseOver;
     public bool staffSkillshow;
+    public bool isEnchanted;//是否被强化
 
     public string staffName="史学家";
     public int atk;
@@ -28,16 +30,19 @@ public class Staff : MonoBehaviour
     public int hp;
     public int magicatk;
     public GameObject OnCell;
-
+    public StaffBuffs staffBuffs;
     // public NavMeshAgent agent;
 
     public skillku skillku;
+    public BuffKu BuffKu;
     public GameManager GameManager;
     // Start is called before the first frame update
     void Start()
     {
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         skillku = GameObject.Find("GameManager").GetComponent<skillku>();
+        BuffKu = GameObject.Find("GameManager").GetComponent<BuffKu>();
+        staffBuffs = gameObject.GetComponent<StaffBuffs>();
         atrribteset();
     }
 
@@ -198,6 +203,8 @@ public class Staff : MonoBehaviour
         }//0是未选中，1是选中，2是即将被攻击,3是行动结束,4是回复技能释放。
     }
 
+    
+
     //public void underAttack()
     //{
     //    //hp -= GameManager.selected.GetComponent<Staff>().atk;
@@ -245,6 +252,7 @@ public class Staff : MonoBehaviour
         }
     }
 
+    //安装技能
     public void insistSkill(string skillName, Action skillFf)
     {
         Button skill1 = Instantiate(prefab);
@@ -271,3 +279,4 @@ public class Staff : MonoBehaviour
 
     }
 }
+

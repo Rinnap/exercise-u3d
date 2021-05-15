@@ -99,7 +99,7 @@ public class Producer : Staff
     {
         clearSkill();
         insistSkill("回复",huifu);
-        insistSkill("穿刺", ChuanCi);
+        insistSkill("强化", QiangHua);
         insistSkill("冲击", chongji);
         insistSkill("散射", sanshe);
     }
@@ -165,9 +165,13 @@ public class Producer : Staff
         GameManager.showUnAttackRange = skillku.ChuanCiRange;
     }
 
-    public void skill3()
+    public void QiangHua()
     {
-        Debug.Log("发动技能3");
+        GameManager.ShowSkillRange(80);
+        GameManager.skill = BuffKu.Qianghua;
+        skillku.skillRange = 1;
+        GameManager.showUnAttackRange = GameManager.GeneralAttackRange;
+
     }
 
 }

@@ -15,7 +15,8 @@ public class GameManager : MonoBehaviour
     public GameObject[] staffs;
     public int turn=0;
     public Text turnUI;
-    public Action skill;
+    public Action skill; //委托当前技能
+    public Action buffSkill;//
     public Action<int,Vector3> showUnAttackRange;
     public skillku skillku;
     public GameObject staffSkill;
@@ -28,7 +29,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        skillku = GameObject.Find("GameManager").GetComponent<skillku>();
+        skillku = gameObject.GetComponent<skillku>();
         cells = GameObject.FindGameObjectsWithTag("cell");
         staffs = GameObject.FindGameObjectsWithTag("staff");
         moveList = new List<GameObject>();
@@ -174,6 +175,7 @@ public class GameManager : MonoBehaviour
         personui.SetActive(false);
         staffSkill.SetActive(false);
         closeUnAttackRange();
+   
     }
 
     public void ShowSkillRange(int skillrange)
@@ -245,6 +247,11 @@ public class GameManager : MonoBehaviour
                     staff.GetComponent<Staff>().changeStatus(3);
                 }
             }
+        }
+        //buff层数变化
+        foreach (var staff in staffs)
+        {
+            staff.GetComponent<StaffBuffs>().TikBuff();
         }
         CloseMoveRange();
         CloseAttackRange();
